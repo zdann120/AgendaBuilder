@@ -8,6 +8,8 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'simple_calendar', '~> 2.0'
+gem 'recurring_select', github: 'RundownApp/recurring_select'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
