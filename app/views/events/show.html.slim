@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Token:
+  = @event.token
+p
+  strong Name:
+  = @event.name
+p
+  strong Start time:
+  = @event.start_time
+p
+  strong End time:
+  = @event.end_time
+p
+  strong Description:
+  = @event.description
+
+= link_to 'Edit', edit_event_path(@event)
+'|
+= link_to 'Back', events_path
