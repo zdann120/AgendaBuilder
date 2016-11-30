@@ -10,6 +10,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'simple_calendar', '~> 2.0'
 gem 'recurring_select', github: 'RundownApp/recurring_select'
+gem 'simple_form'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
@@ -26,6 +27,7 @@ gem 'pundit'
 gem 'slim-rails'
 group :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'foreman'
   gem 'hub', :require=>nil
   gem 'rails_layout'

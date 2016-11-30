@@ -1,9 +1,6 @@
 p#notice = notice
 
 p
-  strong Token:
-  = @event.token
-p
   strong Name:
   = @event.name
 p
@@ -15,7 +12,37 @@ p
 p
   strong Description:
   = @event.description
+hr
+h2 Agenda Slots
+table.table.table-bordered.table-sm.table-striped.table-hover
+  thead
+    tr
+      th Time
+      th Notes
+      th Availability
+  tbody
+    - @event.slots.each do |slot|
+      tr
+        td == slot.start_time
+        td == slot.title
+        td
+          - if slot.users.any?
+            | Reserved by: 
+            == slot.users.map{|u| u.email}.join(', ')
+          - else
+            ' Slot is available
+            == simple_form_for [@event, slot.reservations.new] do |f|
+              == f.input :uid, as: :hidden, input_html: { :value => slot.uid }
+              == f.submit "Reserve"
 
-= link_to 'Edit', edit_event_path(@event)
-'|
-= link_to 'Back', events_path
+
+- if policy(Slot).create?
+  = link_to 'Edit', edit_event_path(@event)
+  '|
+  = link_to 'Back', events_path
+  h2 Add Slots
+  == simple_form_for [@event, @event.slots.new] do |f|
+    == f.input :title
+    == f.input :start_time
+    == f.input :end_time
+    == f.submit

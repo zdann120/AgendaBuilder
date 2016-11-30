@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129230932) do
+ActiveRecord::Schema.define(version: 20161129234534) do
 
   create_table "events", force: :cascade do |t|
     t.string   "token"
@@ -21,6 +21,29 @@ ActiveRecord::Schema.define(version: 20161129230932) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["token"], name: "index_events_on_token", unique: true
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "slot_id"
+    t.string   "confirmation_code"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["confirmation_code"], name: "index_reservations_on_confirmation_code", unique: true
+    t.index ["slot_id"], name: "index_reservations_on_slot_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
+  create_table "slots", force: :cascade do |t|
+    t.string   "uid"
+    t.integer  "event_id"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.index ["event_id"], name: "index_slots_on_event_id"
+    t.index ["uid"], name: "index_slots_on_uid", unique: true
   end
 
   create_table "users", force: :cascade do |t|
