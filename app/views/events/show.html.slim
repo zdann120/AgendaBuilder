@@ -1,5 +1,6 @@
 p#notice = notice
-
+- if @event.recurrence_rule
+  p.lead == RecurringSelect.dirty_hash_to_rule(@event.recurrence_rule).to_s
 p
   strong Name:
   = @event.name
@@ -23,12 +24,15 @@ table.table.table-bordered.table-sm.table-striped.table-hover
   tbody
     - @event.slots.each do |slot|
       tr
-        td == slot.start_time
+        td == slot.start_time.strftime('%a, %b %e, %l:%M %p')
         td == slot.title
         td
           - if slot.users.any?
             | Reserved by: 
             == slot.users.map{|u| u.email}.join(', ')
+            - if slot.users.include? current_user
+              | *
+              == link_to "Add Guest", event_slot_guests_new_path(slot.event, slot.uid)
           - else
             ' Slot is available
             == simple_form_for [@event, slot.reservations.new] do |f|

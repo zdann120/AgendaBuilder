@@ -1,0 +1,4 @@
+ == simple_form_for [@event, @slot.reservations.new], url: event_slot_guests_create_path(@slot.uid) do |f|
+  == f.input :uid, as: :hidden, input_html: { :value => params[:slot_id] }
+  == f.input :email
+  == f.submit "Add Guest"
